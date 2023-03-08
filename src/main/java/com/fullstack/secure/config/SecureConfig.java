@@ -76,6 +76,9 @@ public class SecureConfig {
 
         http.formLogin();//기본 로그인폼으로 되돌리기.
 
+        //OAuth2 인증적용하기
+        http.oauth2Login();
+
         return http.build();
     }
 }

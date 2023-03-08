@@ -23,7 +23,7 @@ public class HomeController {
     public String home(@SessionAttribute(name = SessionConstants.NORM_MEM, required = false)
                        Member loginMember, Model model, HttpServletRequest request) {
         if(loginMember == null) {
-            return "login/home";
+            return "main/index";
         }
         //세션이 유지되면 다시 홈으로 보낸다.
         model.addAttribute("member",loginMember);

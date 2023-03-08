@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,16 +41,16 @@ public class LoginController {
 
     //아래의 모든 매핑에서는 여러분이 응요할 수 잇도록 요청 패턴과 이에 대응하는
     //Viewer 를 지금까지 했던것과는 틀리게 처리 하였으니, 필요시 응용하세요.
-    @GetMapping("/session/login")
+    @GetMapping("/login/loginPage")
     public String loginForm(@ModelAttribute LoginFormDTO loginFormDTO) {
         //Viewer 매핑
 
-        return "login/loginForm";
+        return "login/loginPage";
     }
     //아래에서는 못보던 @ 이 좀 나옵니다.
     //일단 Validate(필드 검증), 서비스 수행후 결과 바인딩되는 BindingResult(보통은 결과가
     //비정상적인 경우 오류 메세지 출력용으로 사용됨) 등입니다.
-    @PostMapping("/session/login")
+    @PostMapping("/login/loginPage")
     public String login(@ModelAttribute LoginFormDTO loginFormDTO
                     , BindingResult bindingResult
             , @RequestParam(defaultValue = "/") String redirectURL
@@ -70,7 +69,7 @@ public class LoginController {
         //멤버객체가 NULL 인경우. BindingResult 에 에러 메세지 추가
         if(loginMember == null) {
 //            bindingResult.reject("Failed Login","ID 또는 비번이 틀립니다.");
-            return "login/loginForm";
+            return "login/loginPage";
         }
 
         //이 영역은 테스트 후 등록된 사용자라면 세션을 적용할 예정입니다.
@@ -81,6 +80,7 @@ public class LoginController {
         return "redirect:" + redirectURL;
 
     }
+    
 
     @PostMapping("/session/logout")
     public String logout(HttpServletRequest httpServletRequest) {
